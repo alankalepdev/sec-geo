@@ -14,8 +14,10 @@ require __DIR__ . '/../includes/header.php';
         </div>
         <div>
             <span class="sec-eyebrow">Quiénes somos</span>
-            <h2 class="sec-title">Servicios de Especialidad y Consultorías</h2>
-            <p class="sec-lead"><?= e($nosotros) ?></p>
+            <h2 class="sec-title"><?= e($nosotros_titulo) ?></h2>
+            <?php foreach ($nosotros as $i => $parrafo): ?>
+                <p<?= $i === 0 ? ' class="sec-lead"' : '' ?>><?= e($parrafo) ?></p>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>

@@ -8,8 +8,8 @@ require __DIR__ . '/../includes/header.php';
     <div class="container sec-grid sec-grid-2 sec-align-center">
         <div>
             <span class="sec-eyebrow">Nosotros</span>
-            <h2 class="sec-title">Especialistas en geotecnia, geología e hidrología</h2>
-            <p class="sec-lead"><?= e($nosotros) ?></p>
+            <h2 class="sec-title">Especialistas en geomecánica, geotecnia, geología e hidrología</h2>
+            <p class="sec-lead"><?= e($nosotros[0]) ?></p>
             <a class="sec-btn" href="<?= url('nosotros') ?>">Conoce más sobre nosotros <i class="icon-right-open-mini"></i></a>
         </div>
         <div class="sec-stats">
@@ -23,7 +23,7 @@ require __DIR__ . '/../includes/header.php';
             </div>
             <div class="sec-stat">
                 <strong><?= count($proyectos) ?></strong>
-                <span>Líneas de modelado: geotécnico, geológico y hidrológico</span>
+                <span>Líneas de modelado: geomecánico, geotécnico, geológico e hidrológico</span>
             </div>
             <div class="sec-stat">
                 <strong><?= count($normas) ?>+</strong>
@@ -81,13 +81,9 @@ require __DIR__ . '/../includes/header.php';
         <div class="sec-heading">
             <span class="sec-eyebrow">Casos</span>
             <h2 class="sec-title">Empresas que confían en nosotros</h2>
-            <p>Modelos geotécnicos, geológico-estructurales e hidrológicos para empresas líderes del sector minero.</p>
+            <p>Modelos geomecánicos, geotécnicos, geológico-estructurales e hidrológicos para empresas líderes del sector minero.</p>
         </div>
-        <ul class="sec-clients">
-            <?php foreach ($clientes as $c): ?>
-                <li><?= e($c) ?></li>
-            <?php endforeach; ?>
-        </ul>
+        <?php include __DIR__ . '/../includes/logos.php'; ?>
         <div class="sec-gallery sec-gallery-teaser">
             <?php foreach (array_slice($galeria, 0, 4) as $g): ?>
                 <a href="<?= e($galeria_dir . $g['img']) ?>" class="sec-gallery-item" data-lightbox="inicio" title="<?= e($g['titulo']) ?>">
@@ -97,7 +93,7 @@ require __DIR__ . '/../includes/header.php';
             <?php endforeach; ?>
         </div>
         <div class="sec-center">
-            <a class="sec-btn sec-btn-outline" href="<?= url('casos') ?>">Ver casos y galería <i class="icon-right-open-mini"></i></a>
+            <a class="sec-btn sec-btn-outline" href="<?= url('casos') ?>">Ver casos de éxito y galería <i class="icon-right-open-mini"></i></a>
         </div>
     </div>
 </section>

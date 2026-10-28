@@ -2,8 +2,8 @@
 $slides = [
     [
         'img'      => 'proyecto-15.jpg',
-        'etiqueta' => 'Geotecnia · Geología · Hidrología',
-        'titulo'   => 'Ingeniería geotécnica<br>para la minería',
+        'etiqueta' => 'Geomecánica · Geología · Hidrología · Geotecnia',
+        'titulo'   => 'Ingeniería geomecánica<br>para la minería',
         'texto'    => 'Desarrollo, diseño y ejecución de proyectos integrales con los más altos estándares de calidad y seguridad.',
         'boton'    => ['Ver soluciones', url('soluciones')],
     ],
@@ -11,15 +11,15 @@ $slides = [
         'img'      => 'proyecto-07.jpg',
         'etiqueta' => 'Minería subterránea',
         'titulo'   => 'Geomecánica que<br>sostiene tu operación',
-        'texto'    => 'Modelos geomecánicos, fortificación y control de estabilidad desde la prefactibilidad hasta la operación.',
-        'boton'    => ['Conoce nuestros casos', url('casos')],
+        'texto'    => 'Modelos geomecánicos, fortificación y controles de estabilidad general y puntual, desde el concepto de prefactibilidad hasta el nivel de factibilidad óptima, que incluyen los controles de costo y FS para cada necesidad.',
+        'boton'    => ['Conoce nuestros casos de éxito', url('casos')],
     ],
     [
         'img'      => 'proyecto-16.jpg',
-        'etiqueta' => 'Cielo abierto',
-        'titulo'   => 'Estabilidad de taludes<br>y modelos hidrológicos',
-        'texto'    => 'Atención al cliente 24/7 para empresas líderes del sector minero en México.',
-        'boton'    => ['Solicita una cotización', url('contacto')],
+        'etiqueta' => 'Minería a cielo abierto',
+        'titulo'   => 'Estabilidad que<br>respalda tu operación',
+        'texto'    => 'Modelos geomecánicos, fortificación y controles de estabilidad general y puntual, desde el concepto de prefactibilidad hasta el nivel de factibilidad óptima, que incluyen los controles de costo y FS para cada necesidad.',
+        'boton'    => ['Conoce nuestros casos de éxito', url('casos')],
     ],
 ];
 ?>

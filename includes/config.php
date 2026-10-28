@@ -29,11 +29,13 @@ function asset($archivo)
 $site = [
     'nombre'       => 'SEC',
     'nombre_largo' => 'Servicios de Especialidad y Consultorías',
-    'descripcion'  => 'Empresa especializada en geotecnia, geología, hidrología y geomecánica minera. Soluciones técnicas con los más altos estándares de calidad y seguridad.',
-    'telefonos'    => ['(331) 468-5868', '(444) 739-9291'],
-    'email'        => 'enriqueholm@hotmail.com',
+    'lema'         => 'Ingeniería especializada. Soluciones estratégicas. Confianza técnica.',
+    'descripcion'  => 'Consultoría integral en geomecánica, geotecnia, geología y geohidrología para minería subterránea y a cielo abierto.',
+    // WhatsApp de atención. TODO: número por confirmar (el cliente contratará una línea de trabajo)
+    'whatsapp'     => '(331) 468-5868',
+    'email'        => 'serviciocliente@secgeo.com',
     // Correo que recibe los mensajes del formulario de contacto
-    'email_contacto' => 'enriqueholm@hotmail.com',
+    'email_contacto' => 'serviciocliente@secgeo.com',
 ];
 
 $menu = [
@@ -44,7 +46,16 @@ $menu = [
     'contacto'   => ['titulo' => 'Contacto',   'url' => url('contacto')],
 ];
 
-$nosotros = 'Somos una empresa especializada en geotecnia, con experiencia en el desarrollo, diseño y ejecución de proyectos integrales en las áreas de geología e hidrología. Nuestra misión es ofrecer soluciones técnicas con los más altos estándares de calidad y seguridad.';
+$nosotros_titulo = 'Ingeniería especializada para los desafíos de la industria minera';
+
+// Primer párrafo = resumen que también se muestra en inicio
+$nosotros = [
+    'Somos una empresa de consultoría especializada en geociencias e ingeniería minera, enfocada en el desarrollo de soluciones técnicas integrales en geomecánica, geotecnia, geología y geohidrología.',
+    'Integramos experiencia profesional, análisis técnico y herramientas avanzadas de ingeniería para abordar los desafíos asociados con el diseño, la evaluación y la optimización de proyectos mineros subterráneos y a cielo abierto.',
+    'Nuestra metodología se orienta a la identificación y gestión de riesgos, la evaluación del comportamiento del macizo rocoso y de los materiales geológicos, la estabilidad de las estructuras mineras y la optimización técnico-económica de las soluciones propuestas.',
+    'En SEC entendemos que cada proyecto requiere un enfoque específico. Por ello, desarrollamos soluciones fundamentadas en las condiciones particulares de cada sitio, los objetivos operativos, los criterios de diseño y los requisitos normativos aplicables.',
+    'Nuestro compromiso es aportar conocimiento especializado, rigor técnico y soluciones confiables que contribuyan a la seguridad, la eficiencia operativa y la generación de valor para nuestros clientes.',
+];
 
 $mision = 'Proporcionar soluciones técnicas innovadoras y sostenibles en ingeniería geotécnica, aportando valor a nuestros clientes mediante el uso de tecnología de punta y talento humano calificado.';
 
@@ -55,17 +66,17 @@ $certificaciones = 'Contamos con un equipo multidisciplinario certificado en nor
 $normas = ['STPS', 'NOM', 'ACI', 'ASTM'];
 
 $equipo = [
-    ['nombre' => 'Ing. Enrique Ledesma Holm',   'cargo' => 'Operaciones Generales'],
+    ['nombre' => 'Ing. Enrique L. Holm',        'cargo' => 'Operaciones Generales'],
     ['nombre' => 'Ing. Diana E. Castañeda',     'cargo' => 'Coordinación y Logística'],
-    ['nombre' => 'Lic. Carlos Castillo Glz.',   'cargo' => 'Finanzas'],
+    ['nombre' => 'Lic. Carlos Castillo',        'cargo' => 'Finanzas'],
 ];
 
 // Servicios principales (icono = clase de mfn-icons de la plantilla)
 $servicios = [
-    ['titulo' => 'Estudios geotécnicos',            'texto' => 'Estudios geotécnicos y de mecánica de suelos.',                                                                       'icono' => 'icon-database'],
+    ['titulo' => 'Estudios geomecánicos',           'texto' => 'Estudios de mecánica de rocas conforme a las NOM oficiales vigentes; pueden incluir capacitación con entrega de DC3 oficiales.', 'icono' => 'icon-database'],
     ['titulo' => 'Hidrogeología e hidrología',      'texto' => 'Elaboración de estudios hidrogeológicos e hidrológicos.',                                                             'icono' => 'icon-water'],
-    ['titulo' => 'Estudios geológicos',             'texto' => 'Elaboración de estudios geológicos.',                                                                                 'icono' => 'icon-globe'],
-    ['titulo' => 'Estabilidad de taludes',          'texto' => 'Diseño y análisis de estabilidad de taludes.',                                                                        'icono' => 'icon-chart-line'],
+    ['titulo' => 'Estudios geológicos',             'texto' => 'Elaboración de estudios geológicos conforme a las NOM oficiales vigentes.',                                           'icono' => 'icon-globe'],
+    ['titulo' => 'Estudios geotécnicos',            'texto' => 'Estudios geotécnicos y de mecánica de suelos.',                                                                       'icono' => 'icon-chart-line'],
     ['titulo' => 'Controles de estabilidad',        'texto' => 'Diseño y secuenciamiento (o evaluación) de los controles de estabilidad en minería subterránea y a cielo abierto.',  'icono' => 'icon-flow-tree'],
     ['titulo' => 'Fortificación y soporte',         'texto' => 'Diseño y análisis de estándares de fortificación o soporte en minería subterránea y a cielo abierto.',               'icono' => 'icon-traffic-cone'],
     ['titulo' => 'Pruebas de campo y laboratorio',  'texto' => 'Colecta y elaboración de pruebas de campo y laboratorio.',                                                           'icono' => 'icon-beaker-line'],
@@ -94,38 +105,38 @@ $experiencia = [
     'Elaboración de planes de desarrollo matricial según PAP\'s, KPI\'s, POM, entre otros.',
 ];
 
-// Proyectos destacados (CV págs. 2 y 3). Nombres tal como aparecen en el CV.
+// Líneas de modelado (CV págs. 2 y 3)
 $proyectos = [
-    [
-        'titulo' => 'Modelos geotécnicos',
-        'texto'  => 'Amplia experiencia en la elaboración de modelos geotécnicos completos para empresas líderes en el sector minero.',
-        'clientes' => ['Grupo Calidra', 'Peñoles', 'FMSC', 'Cemex', 'Sierra Madre Gold and Silver', 'Silver Storm Mining'],
-    ],
-    [
-        'titulo' => 'Modelos geológico-estructurales',
-        'texto'  => 'Elaboración de modelos geológico-estructurales completos para empresas líderes en el sector minero.',
-        'clientes' => ['Silver Storm Mining', 'First Majestic Silver Corp', 'Grupo Calidra', 'GoldGroup Mining Inc.', 'Oroco Resources SA de CV'],
-    ],
-    [
-        'titulo' => 'Modelos hidrológicos',
-        'texto'  => 'Elaboración de modelos hidrológicos para empresas líderes en el sector minero.',
-        'clientes' => ['Silver Storm Mining', 'First Majestic Silver Corp', 'Grupo Calidra', 'Cemex'],
-    ],
+    ['titulo' => 'Modelos geomecánicos',            'texto' => 'Elaboración de modelos geomecánicos completos para empresas líderes en el sector minero.'],
+    ['titulo' => 'Modelos geotécnicos',             'texto' => 'Amplia experiencia en la elaboración de modelos geotécnicos completos para empresas líderes en el sector minero.'],
+    ['titulo' => 'Modelos geológico-estructurales', 'texto' => 'Elaboración de modelos geológico-estructurales completos para empresas líderes en el sector minero.'],
+    ['titulo' => 'Modelos hidrológicos',            'texto' => 'Elaboración de modelos hidrológicos para empresas líderes en el sector minero.'],
 ];
 
-// Lista única de clientes para la franja de logos/nombres
-$clientes = array_values(array_unique(array_merge(...array_column($proyectos, 'clientes'))));
+// Empresas que han confiado en nosotros (logo en assets/images/sec/clientes/; sin logo se muestra el nombre)
+$clientes_dir = asset('assets/images/sec/clientes/');
+$clientes = [
+    ['nombre' => 'Grupo Calidra',                'logo' => 'calidra.png'],
+    ['nombre' => 'Peñoles',                      'logo' => 'penoles.png'],
+    ['nombre' => 'FMSC',                         'logo' => ''],
+    ['nombre' => 'Cemex',                        'logo' => 'cemex.png'],
+    ['nombre' => 'Sierra Madre Gold and Silver', 'logo' => 'sierramadre.png'],
+    ['nombre' => 'Silver Storm Mining',          'logo' => 'silverstorm.png'],
+    ['nombre' => 'First Majestic Silver Corp',   'logo' => 'firstmajestic.png'],
+    ['nombre' => 'GoldGroup Mining Inc.',        'logo' => 'goldgroup.png'],
+    ['nombre' => 'Oroco Resources SA de CV',     'logo' => 'oroco.png'],
+    ['nombre' => 'Luca Mining',                  'logo' => 'luca.png'],
+    ['nombre' => 'DMV Mining Intelligence',      'logo' => 'mining.png'],
+];
 
 $galeria_dir = asset('assets/images/sec/galeria/');
 $galeria = [
     ['img' => 'proyecto-15.jpg', 'titulo' => 'Mina a cielo abierto',              'cat' => 'cielo-abierto'],
     ['img' => 'proyecto-07.jpg', 'titulo' => 'Barrenación en desarrollo subterráneo', 'cat' => 'subterranea'],
-    ['img' => 'proyecto-04.jpg', 'titulo' => 'Pruebas de laboratorio',            'cat' => 'laboratorio'],
     ['img' => 'proyecto-16.jpg', 'titulo' => 'Diseño de bancos y taludes',        'cat' => 'cielo-abierto'],
     ['img' => 'proyecto-02.jpg', 'titulo' => 'Fortificación con marcos',          'cat' => 'subterranea'],
     ['img' => 'proyecto-10.jpg', 'titulo' => 'Inspección en sitio',               'cat' => 'cielo-abierto'],
     ['img' => 'proyecto-08.jpg', 'titulo' => 'Supervisión geomecánica',           'cat' => 'subterranea'],
-    ['img' => 'proyecto-05.jpg', 'titulo' => 'Control y monitoreo',               'cat' => 'laboratorio'],
     ['img' => 'proyecto-01.jpg', 'titulo' => 'Equipo de anclaje',                 'cat' => 'subterranea'],
     ['img' => 'proyecto-17.jpg', 'titulo' => 'Caracterización del macizo rocoso', 'cat' => 'cielo-abierto'],
     ['img' => 'proyecto-06.jpg', 'titulo' => 'Ensayos de campo',                  'cat' => 'laboratorio'],
@@ -151,4 +162,9 @@ function e($texto)
 function tel_link($telefono)
 {
     return 'tel:+52' . preg_replace('/\D/', '', $telefono);
+}
+
+function whatsapp_link($telefono)
+{
+    return 'https://wa.me/52' . preg_replace('/\D/', '', $telefono);
 }

@@ -73,12 +73,10 @@ require __DIR__ . '/../includes/header.php';
             <h2 class="sec-title">Hablemos de tu proyecto</h2>
 
             <ul class="sec-contact-list">
-                <?php foreach ($site['telefonos'] as $tel): ?>
-                    <li>
-                        <i class="icon-phone"></i>
-                        <div><small>Teléfono</small><a href="<?= e(tel_link($tel)) ?>"><?= e($tel) ?></a></div>
-                    </li>
-                <?php endforeach; ?>
+                <li>
+                    <i class="sec-icon-whatsapp"></i>
+                    <div><small>WhatsApp</small><a href="<?= e(whatsapp_link($site['whatsapp'])) ?>" target="_blank" rel="noopener"><?= e($site['whatsapp']) ?></a></div>
+                </li>
                 <li>
                     <i class="icon-mail"></i>
                     <div><small>Correo electrónico</small><a href="mailto:<?= e($site['email']) ?>"><?= e($site['email']) ?></a></div>

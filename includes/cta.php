@@ -6,7 +6,7 @@
         </div>
         <div class="sec-cta-actions">
             <a class="sec-btn sec-btn-navy" href="<?= url('contacto') ?>">Contáctanos</a>
-            <a class="sec-btn sec-btn-white" href="<?= e(tel_link($site['telefonos'][0])) ?>"><i class="icon-phone"></i> <?= e($site['telefonos'][0]) ?></a>
+            <a class="sec-btn sec-btn-white" href="<?= e(whatsapp_link($site['whatsapp'])) ?>" target="_blank" rel="noopener"><i class="sec-icon-whatsapp"></i> WhatsApp</a>
         </div>
     </div>
 </section>

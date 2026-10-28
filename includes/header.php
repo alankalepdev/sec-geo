@@ -77,7 +77,7 @@ $body_class = $es_inicio
                             </div>
                             <div class="top_bar_right">
                                 <div class="top_bar_right_wrapper">
-                                    <a href="<?= e(tel_link($site['telefonos'][0])) ?>" class="action_button"><i class="icon-phone"></i> <?= e($site['telefonos'][0]) ?></a>
+                                    <a href="<?= url('contacto') ?>" class="action_button"><i class="icon-mail"></i> Contáctanos</a>
                                 </div>
                             </div>
                         </div>

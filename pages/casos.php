@@ -1,7 +1,7 @@
 <?php
 $pagina        = 'casos';
 $titulo_pagina = 'Casos';
-$subtitulo     = 'Proyectos destacados para empresas líderes del sector minero.';
+$subtitulo     = 'Casos de éxito para empresas líderes del sector minero.';
 $subheader_img = $galeria_dir . 'proyecto-08.jpg';
 require __DIR__ . '/../includes/header.php';
 ?>
@@ -10,23 +10,23 @@ require __DIR__ . '/../includes/header.php';
 <section class="sec-section">
     <div class="container">
         <div class="sec-heading">
-            <span class="sec-eyebrow">Proyectos destacados</span>
+            <span class="sec-eyebrow">Casos de éxito</span>
             <h2 class="sec-title">Modelos que respaldan decisiones mineras</h2>
             <p>Algunos de nuestros clientes son recurrentes gracias a nuestro compromiso con la calidad y el servicio al cliente, que está atento 24/7.</p>
         </div>
-        <div class="sec-grid sec-grid-3">
+        <div class="sec-grid sec-grid-4">
             <?php foreach ($proyectos as $p): ?>
                 <article class="sec-case">
                     <h3><?= e($p['titulo']) ?></h3>
                     <p><?= e($p['texto']) ?></p>
-                    <ul>
-                        <?php foreach ($p['clientes'] as $c): ?>
-                            <li><?= e($c) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
                 </article>
             <?php endforeach; ?>
         </div>
+
+        <div class="sec-heading sec-clients-heading">
+            <span class="sec-eyebrow">Empresas que confían en nosotros</span>
+        </div>
+        <?php include __DIR__ . '/../includes/logos.php'; ?>
     </div>
 </section>
 

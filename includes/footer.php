@@ -11,6 +11,7 @@
                             <img src="<?= asset('assets/images/sec/logo-sec-circulo.png') ?>" alt="Logo SEC">
                             <span><strong>Servicios de Especialidad</strong> y Consultorías</span>
                         </a>
+                        <p class="sec-footer-lema"><?= e($site['lema']) ?></p>
                         <p><?= e($site['descripcion']) ?></p>
                     </div>
                     <div class="column one-third">
@@ -24,9 +25,7 @@
                     <div class="column one-third">
                         <h4>Contacto</h4>
                         <ul class="sec-footer-contact">
-                            <?php foreach ($site['telefonos'] as $tel): ?>
-                                <li><i class="icon-phone"></i><a href="<?= e(tel_link($tel)) ?>"><?= e($tel) ?></a></li>
-                            <?php endforeach; ?>
+                            <li><i class="sec-icon-whatsapp"></i><a href="<?= e(whatsapp_link($site['whatsapp'])) ?>" target="_blank" rel="noopener"><?= e($site['whatsapp']) ?></a></li>
                             <li><i class="icon-mail"></i><a href="mailto:<?= e($site['email']) ?>"><?= e($site['email']) ?></a></li>
                             <li><i class="icon-clock"></i>Atención al cliente 24/7</li>
                         </ul>
@@ -50,7 +49,7 @@
             <a href="#" class="close" aria-label="Cerrar menú"><i class="icon-cancel-fine"></i></a>
         </div>
         <div class="extras">
-            <a href="<?= e(tel_link($site['telefonos'][0])) ?>" class="action_button"><i class="icon-phone"></i> <?= e($site['telefonos'][0]) ?></a>
+            <a href="<?= url('contacto') ?>" class="action_button"><i class="icon-mail"></i> Contáctanos</a>
             <div class="extras-wrapper"></div>
         </div>
         <div class="menu_wrapper"></div>
