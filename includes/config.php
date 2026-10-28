@@ -14,6 +14,19 @@ if (!defined('BASE_URL')) {
     define('BASE_URL', rtrim($base, '/') . '/');
 }
 
+// URL absoluta del sitio para canonical, Open Graph y sitemap (se toma del dominio con que se visita)
+if (!defined('SITE_URL')) {
+    $https = ($_SERVER['HTTPS'] ?? '') === 'on' || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
+    $host  = preg_replace('/[^A-Za-z0-9.:-]/', '', $_SERVER['HTTP_HOST'] ?? 'localhost');
+    define('SITE_URL', ($https ? 'https' : 'http') . '://' . $host);
+}
+
+/** URL absoluta: abs_url(url('soluciones')) → https://dominio/soluciones */
+function abs_url($ruta)
+{
+    return SITE_URL . $ruta;
+}
+
 /** URL limpia de una ruta: url('soluciones') → /soluciones */
 function url($ruta = '')
 {
@@ -36,6 +49,30 @@ $site = [
     'email'        => 'serviciocliente@secgeo.com',
     // Correo que recibe los mensajes del formulario de contacto
     'email_contacto' => 'serviciocliente@secgeo.com',
+];
+
+// SEO por página: título para <title> y meta description (150-160 caracteres aprox.)
+$seo = [
+    'inicio' => [
+        'titulo'      => 'Servicios de Especialidad y Consultorías | Geomecánica y Geotecnia Minera',
+        'descripcion' => 'Consultoría en geomecánica, geotecnia, geología y geohidrología para minería subterránea y a cielo abierto en México. Estudios conforme a las NOM vigentes.',
+    ],
+    'soluciones' => [
+        'titulo'      => 'Soluciones en geomecánica, geotecnia y geología minera',
+        'descripcion' => 'Estudios geomecánicos, geotécnicos, geológicos e hidrogeológicos, controles de estabilidad, fortificación, pruebas de laboratorio y vuelos fotogramétricos.',
+    ],
+    'casos' => [
+        'titulo'      => 'Casos de éxito en modelos geomecánicos y geotécnicos',
+        'descripcion' => 'Modelos geomecánicos, geotécnicos, geológico-estructurales e hidrológicos para Peñoles, Cemex, Grupo Calidra, First Majestic y otras empresas mineras.',
+    ],
+    'nosotros' => [
+        'titulo'      => 'Nosotros: consultoría en geociencias e ingeniería minera',
+        'descripcion' => 'Empresa de consultoría especializada en geociencias e ingeniería minera con soluciones técnicas integrales en geomecánica, geotecnia, geología y geohidrología.',
+    ],
+    'contacto' => [
+        'titulo'      => 'Contacto y cotizaciones',
+        'descripcion' => 'Cuéntanos sobre tu proyecto minero o geotécnico. Atención al cliente 24/7 por WhatsApp y correo electrónico.',
+    ],
 ];
 
 $menu = [

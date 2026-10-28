@@ -12,4 +12,6 @@ return [
     'casos'      => 'casos.php',
     'nosotros'   => 'nosotros.php',
     'contacto'   => 'contacto.php',
+    'sitemap.xml' => 'sitemap.php',
+    'robots.txt'  => 'robots.php',
 ];

@@ -29,7 +29,8 @@ $slides = [
             <div class="sec-slide-bg" style="background-image:url('<?= e($galeria_dir . $s['img']) ?>')"></div>
             <div class="sec-slide-content container">
                 <span class="sec-slide-tag"><?= e($s['etiqueta']) ?></span>
-                <h2 class="sec-slide-title"><?= $s['titulo'] ?></h2>
+                <?php $tag = $i === 0 ? 'h1' : 'h2'; ?>
+                <<?= $tag ?> class="sec-slide-title"><?= $s['titulo'] ?></<?= $tag ?>>
                 <p class="sec-slide-text"><?= e($s['texto']) ?></p>
                 <a class="sec-btn" href="<?= e($s['boton'][1]) ?>"><?= e($s['boton'][0]) ?> <i class="icon-right-open-mini"></i></a>
             </div>

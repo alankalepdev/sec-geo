@@ -14,7 +14,36 @@ $es_inicio     = $pagina === 'inicio';
 $titulo_pagina = $titulo_pagina ?? '';
 $subtitulo     = $subtitulo ?? '';
 $subheader_img = $subheader_img ?? $galeria_dir . 'proyecto-15.jpg';
-$titulo_head   = $titulo_pagina ? $titulo_pagina . ' | ' . $site['nombre_largo'] : $site['nombre_largo'] . ' | Geotecnia y Geomecánica Minera';
+$titulo_head   = $seo[$pagina]['titulo'] ?? ($titulo_pagina ?: $site['nombre_largo']);
+if ($pagina !== 'inicio') {
+    $titulo_head .= ' | SEC';
+}
+$meta_desc     = $seo[$pagina]['descripcion'] ?? $site['descripcion'];
+$indexable     = isset($menu[$pagina]);
+$canonical     = $indexable ? abs_url($menu[$pagina]['url']) : '';
+$og_imagen     = abs_url($es_inicio ? $galeria_dir . 'proyecto-15.jpg' : $subheader_img);
+
+// Datos estructurados (schema.org) del negocio
+$schema = [
+    '@context'    => 'https://schema.org',
+    '@type'       => 'ProfessionalService',
+    'name'        => $site['nombre_largo'],
+    'alternateName' => $site['nombre'],
+    'description' => $site['descripcion'],
+    'url'         => abs_url(url()),
+    'logo'        => abs_url(asset('assets/images/sec/logo-sec-completo.png')),
+    'image'       => abs_url($galeria_dir . 'proyecto-15.jpg'),
+    'email'       => $site['email'],
+    'telephone'   => '+52' . preg_replace('/\D/', '', $site['whatsapp']),
+    'areaServed'  => ['@type' => 'Country', 'name' => 'México'],
+    'knowsAbout'  => ['Geomecánica', 'Geotecnia', 'Geología', 'Geohidrología', 'Mecánica de rocas', 'Minería subterránea', 'Minería a cielo abierto'],
+    'openingHoursSpecification' => [
+        '@type'     => 'OpeningHoursSpecification',
+        'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        'opens'     => '00:00',
+        'closes'    => '23:59',
+    ],
+];
 
 $body_class = $es_inicio
     ? 'home page template-slider'
@@ -26,13 +55,31 @@ $body_class = $es_inicio
 <head>
     <meta charset="utf-8">
     <title><?= e($titulo_head) ?></title>
-    <meta name="description" content="<?= e($site['descripcion']) ?>">
+    <meta name="description" content="<?= e($meta_desc) ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1c3b4f">
+    <?php if ($indexable): ?>
+        <meta name="robots" content="index, follow, max-image-preview:large">
+        <link rel="canonical" href="<?= e($canonical) ?>">
+    <?php else: ?>
+        <meta name="robots" content="noindex, follow">
+    <?php endif; ?>
 
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:site_name" content="<?= e($site['nombre_largo']) ?>">
     <meta property="og:title" content="<?= e($titulo_head) ?>">
-    <meta property="og:description" content="<?= e($site['descripcion']) ?>">
-    <meta property="og:image" content="<?= asset('assets/images/sec/logo-sec-completo.png') ?>">
+    <meta property="og:description" content="<?= e($meta_desc) ?>">
+    <meta property="og:image" content="<?= e($og_imagen) ?>">
+    <?php if ($indexable): ?>
+        <meta property="og:url" content="<?= e($canonical) ?>">
+    <?php endif; ?>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= e($titulo_head) ?>">
+    <meta name="twitter:description" content="<?= e($meta_desc) ?>">
+    <meta name="twitter:image" content="<?= e($og_imagen) ?>">
+
+    <script type="application/ld+json"><?= json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
 
     <link rel="icon" type="image/png" href="<?= asset('assets/images/sec/logo-sec-circulo.png') ?>">
 
