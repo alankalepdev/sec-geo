@@ -1,6 +1,7 @@
 <?php
 $pagina        = 'casos';
 $titulo_pagina = 'Casos';
+$h1            = 'Casos de éxito en geomecánica y geotecnia minera';
 $subtitulo     = 'Casos de éxito para empresas líderes del sector minero.';
 $subheader_img = $galeria_dir . 'proyecto-08.jpg';
 require __DIR__ . '/../includes/header.php';

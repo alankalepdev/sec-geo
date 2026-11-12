@@ -7,9 +7,19 @@
 $ruta = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Bloquear carpetas internas
-if (preg_match('#^/(includes|pages)(/|$)|^/(routes|router)\.php$#', $ruta)) {
+if (preg_match('#^/(includes|pages|vendor)(/|$)|^/(routes|router)\.php$|^/composer\.(json|lock)$#', $ruta)) {
     http_response_code(403);
     exit('Acceso denegado');
+}
+
+// Restos de la plantilla original
+if (preg_match('#^/seo3(/|$)#', $ruta)) {
+    http_response_code(410);
+    exit;
+}
+if (preg_match('#^/(about|contact|services|vehicles)\.html$#', $ruta)) {
+    require __DIR__ . '/index.php';
+    return true;
 }
 
 // Archivos estáticos existentes: que los sirva el servidor de PHP

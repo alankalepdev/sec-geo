@@ -24,6 +24,18 @@ if (preg_match('/^(.*?)\.php$/', $ruta, $m)) {
     }
 }
 
+// Páginas de la plantilla original → redirección 301 a su equivalente (no deben indexarse)
+$antiguas = [
+    'about.html'    => 'nosotros',
+    'contact.html'  => 'contacto',
+    'services.html' => 'soluciones',
+    'vehicles.html' => 'casos',
+];
+if (isset($antiguas[$ruta])) {
+    header('Location: ' . url($antiguas[$ruta]), true, 301);
+    exit;
+}
+
 if (array_key_exists($ruta, $rutas)) {
     require __DIR__ . '/pages/' . $rutas[$ruta];
 } else {

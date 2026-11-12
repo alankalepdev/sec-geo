@@ -8,7 +8,7 @@
                 <div class="container">
                     <div class="column one-third">
                         <a href="<?= url() ?>" class="sec-footer-logo">
-                            <img src="<?= asset('assets/images/sec/logo-sec-circulo.png') ?>" alt="Logo SEC">
+                            <img src="<?= asset('assets/images/sec/logo-sec-header.png') ?>" alt="Logo SEC">
                             <span><strong>Servicios de Especialidad</strong> y Consultorías</span>
                         </a>
                         <p class="sec-footer-lema"><?= e($site['lema']) ?></p>

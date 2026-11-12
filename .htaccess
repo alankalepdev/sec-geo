@@ -1,12 +1,40 @@
 Options -Indexes
 DirectoryIndex index.php
+AddDefaultCharset UTF-8
+
+# ------------------------------------------------------------------
+# Proteger archivos sensibles (dotfiles, composer, markdown, logs)
+# ------------------------------------------------------------------
+<FilesMatch "^\.|\.(md|log|lock|ini|sql|bak|dist)$|^composer\.json$">
+    Require all denied
+</FilesMatch>
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    # Si el sitio vive en una subcarpeta (ej. public_html/sitio), cambia a: RewriteBase /sitio/
+    RewriteBase /
 
-    # Bloquear acceso directo a carpetas internas
-    RewriteRule ^(includes|pages)(/|$) - [F,L]
-    RewriteRule ^routes\.php$ - [F,L]
+    # Forzar HTTPS (compatible con proxies / Cloudflare)
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteCond %{REQUEST_URI} !^/\.well-known/
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+    # Quitar "www." (descomenta si quieres el dominio sin www)
+    # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    # RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+    # Dejar pasar validaciones de AutoSSL / Let's Encrypt
+    RewriteRule ^\.well-known/ - [L]
+
+    # Bloquear acceso directo a carpetas y archivos internos
+    RewriteRule ^(includes|pages|vendor|\.git)(/|$) - [F,L]
+    RewriteRule ^(routes|router)\.php$ - [F,L]
+    RewriteRule ^composer\.(json|lock)$ - [F,L]
+
+    # Restos de la plantilla original: la demo SEO ya no existe (410) y los .html redirigen (index.php)
+    RewriteRule ^seo3(/|$) - [G,L]
+    RewriteRule ^(about|contact|services|vehicles)\.html$ index.php [L]
 
     # Archivos y carpetas que existen (css, js, imágenes) se sirven tal cual
     RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -17,3 +45,40 @@ DirectoryIndex index.php
     # Todo lo demás pasa por el controlador frontal
     RewriteRule ^ index.php [L,QSA]
 </IfModule>
+
+# ------------------------------------------------------------------
+# Compresión
+# ------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------------
+# Caché del navegador para archivos estáticos
+# ------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 week"
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 6 months"
+    ExpiresByType image/png "access plus 6 months"
+    ExpiresByType image/webp "access plus 6 months"
+    ExpiresByType image/svg+xml "access plus 6 months"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
+
+# ------------------------------------------------------------------
+# Cabeceras de seguridad básicas
+# ------------------------------------------------------------------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Nota: cPanel ("MultiPHP Manager") puede añadir abajo un bloque
+# "php -- BEGIN cPanel-generated handler". No lo borres si aparece.

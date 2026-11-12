@@ -14,11 +14,15 @@ if (!defined('BASE_URL')) {
     define('BASE_URL', rtrim($base, '/') . '/');
 }
 
-// URL absoluta del sitio para canonical, Open Graph y sitemap (se toma del dominio con que se visita)
+// Dominio oficial para canonical, Open Graph y sitemap (evita duplicados www / sin www)
+define('SITE_URL_PRODUCCION', 'https://secgeoconsult.com');
+
+// URL absoluta del sitio: en local se toma del dominio con que se visita
 if (!defined('SITE_URL')) {
     $https = ($_SERVER['HTTPS'] ?? '') === 'on' || ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https';
     $host  = preg_replace('/[^A-Za-z0-9.:-]/', '', $_SERVER['HTTP_HOST'] ?? 'localhost');
-    define('SITE_URL', ($https ? 'https' : 'http') . '://' . $host);
+    $local = preg_match('/^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$|\.(test|local)(:\d+)?$/', $host);
+    define('SITE_URL', $local ? ($https ? 'https' : 'http') . '://' . $host : SITE_URL_PRODUCCION);
 }
 
 /** URL absoluta: abs_url(url('soluciones')) → https://dominio/soluciones */
@@ -46,15 +50,15 @@ $site = [
     'descripcion'  => 'Consultoría integral en geomecánica, geotecnia, geología y geohidrología para minería subterránea y a cielo abierto.',
     // WhatsApp de atención. TODO: número por confirmar (el cliente contratará una línea de trabajo)
     'whatsapp'     => '(331) 468-5868',
-    'email'        => 'serviciocliente@secgeo.com',
+    'email'        => 'contacto@secgeoconsult.com',
     // Correo que recibe los mensajes del formulario de contacto
-    'email_contacto' => 'serviciocliente@secgeo.com',
+    'email_contacto' => 'contacto@secgeoconsult.com',
 ];
 
 // SEO por página: título para <title> y meta description (150-160 caracteres aprox.)
 $seo = [
     'inicio' => [
-        'titulo'      => 'Servicios de Especialidad y Consultorías | Geomecánica y Geotecnia Minera',
+        'titulo'      => 'Geomecánica y Geotecnia Minera en México | SEC Consultorías',
         'descripcion' => 'Consultoría en geomecánica, geotecnia, geología y geohidrología para minería subterránea y a cielo abierto en México. Estudios conforme a las NOM vigentes.',
     ],
     'soluciones' => [
@@ -70,8 +74,8 @@ $seo = [
         'descripcion' => 'Empresa de consultoría especializada en geociencias e ingeniería minera con soluciones técnicas integrales en geomecánica, geotecnia, geología y geohidrología.',
     ],
     'contacto' => [
-        'titulo'      => 'Contacto y cotizaciones',
-        'descripcion' => 'Cuéntanos sobre tu proyecto minero o geotécnico. Atención al cliente 24/7 por WhatsApp y correo electrónico.',
+        'titulo'      => 'Contacto y cotizaciones de geomecánica minera',
+        'descripcion' => 'Solicita una cotización de estudios geomecánicos, geotécnicos o geológicos para tu mina. Atención 24/7 por WhatsApp y correo. Respuesta rápida.',
     ],
 ];
 

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../includes/config.php';
+require_once __DIR__ . '/../includes/mailer.php';
 
 if (empty($_SESSION['csrf'])) {
     $_SESSION['csrf'] = bin2hex(random_bytes(16));
@@ -21,44 +22,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf'], (string) ($_POST['csrf'] ?? ''))) {
         $errores['general'] = 'La sesión expiró. Recarga la página e inténtalo de nuevo.';
     }
+    // Límite: un envío por minuto por sesión
+    if (!$errores && time() - ($_SESSION['ultimo_envio'] ?? 0) < 60) {
+        $errores['general'] = 'Ya recibimos un mensaje tuyo hace un momento. Espera un minuto antes de enviar otro.';
+    }
     if ($campos['nombre'] === '') {
         $errores['nombre'] = 'Escribe tu nombre.';
+    } elseif (mb_strlen($campos['nombre']) > 100) {
+        $errores['nombre'] = 'El nombre es demasiado largo.';
     }
     if (!filter_var($campos['email'], FILTER_VALIDATE_EMAIL)) {
         $errores['email'] = 'Escribe un correo electrónico válido.';
     }
     if ($campos['mensaje'] === '') {
         $errores['mensaje'] = 'Cuéntanos sobre tu proyecto.';
+    } elseif (mb_strlen($campos['mensaje']) > 5000) {
+        $errores['mensaje'] = 'El mensaje es demasiado largo (máximo 5000 caracteres).';
+    }
+    if ($campos['servicio'] !== '' && $campos['servicio'] !== 'Otro' && !in_array($campos['servicio'], array_column($servicios, 'titulo'), true)) {
+        $campos['servicio'] = 'Otro';
     }
 
     if (!$errores) {
-        $enviado = true;
-        if (!$es_bot) {
-            // Evitar inyección de cabeceras
-            $limpio = fn($v) => str_replace(["\r", "\n"], ' ', $v);
-
-            $asunto = 'Nuevo contacto desde el sitio web: ' . $limpio($campos['nombre']);
-            $cuerpo = "Nombre: {$campos['nombre']}\n"
-                    . "Empresa: {$campos['empresa']}\n"
-                    . "Correo: {$campos['email']}\n"
-                    . "Teléfono: {$campos['telefono']}\n"
-                    . "Servicio de interés: {$campos['servicio']}\n\n"
-                    . "Mensaje:\n{$campos['mensaje']}\n";
-            $cabeceras = "From: Sitio web SEC <no-reply@{$_SERVER['SERVER_NAME']}>\r\n"
-                       . 'Reply-To: ' . $limpio($campos['email']) . "\r\n"
-                       . "Content-Type: text/plain; charset=UTF-8\r\n";
-
-            $enviado = @mail($site['email_contacto'], '=?UTF-8?B?' . base64_encode($asunto) . '?=', $cuerpo, $cabeceras);
+        // A los bots se les responde como si se hubiera enviado
+        if ($es_bot || enviar_contacto($campos)) {
+            $_SESSION['ultimo_envio'] = time();
+            // Post/Redirect/Get para evitar reenvíos al recargar
+            header('Location: ' . url('contacto') . '?enviado=ok#formulario');
+            exit;
         }
-
-        // Post/Redirect/Get para evitar reenvíos al recargar
-        header('Location: ' . url('contacto') . '?enviado=' . ($enviado ? 'ok' : 'error') . '#formulario');
-        exit;
+        // Si falló el envío se vuelve a mostrar el formulario con lo que escribió la persona
+        $estado = 'error';
     }
 }
 
 $pagina        = 'contacto';
 $titulo_pagina = 'Contacto';
+$h1            = 'Cotiza tu estudio geomecánico o geotécnico';
 $subtitulo     = 'Cuéntanos sobre tu proyecto. Te atendemos 24/7.';
 $subheader_img = $galeria_dir . 'proyecto-17.jpg';
 require __DIR__ . '/../includes/header.php';
@@ -86,13 +86,6 @@ require __DIR__ . '/../includes/header.php';
                     <div><small>Horario</small>Atención al cliente 24/7</div>
                 </li>
             </ul>
-
-            <h3 class="sec-contact-subtitle">Atención</h3>
-            <ul class="sec-contact-team">
-                <?php foreach ($equipo as $persona): ?>
-                    <li><strong><?= e($persona['nombre']) ?></strong><span><?= e($persona['cargo']) ?></span></li>
-                <?php endforeach; ?>
-            </ul>
         </aside>
 
         <!-- Formulario -->
@@ -115,7 +108,7 @@ require __DIR__ . '/../includes/header.php';
                 <div class="sec-form-row">
                     <label class="<?= isset($errores['nombre']) ? 'has-error' : '' ?>">
                         <span>Nombre *</span>
-                        <input type="text" name="nombre" value="<?= e($campos['nombre']) ?>" required autocomplete="name">
+                        <input type="text" name="nombre" value="<?= e($campos['nombre']) ?>" required maxlength="100" autocomplete="name">
                         <?php if (isset($errores['nombre'])): ?><em><?= e($errores['nombre']) ?></em><?php endif; ?>
                     </label>
                     <label>
@@ -149,7 +142,7 @@ require __DIR__ . '/../includes/header.php';
 
                 <label class="<?= isset($errores['mensaje']) ? 'has-error' : '' ?>">
                     <span>Mensaje *</span>
-                    <textarea name="mensaje" rows="6" required><?= e($campos['mensaje']) ?></textarea>
+                    <textarea name="mensaje" rows="6" required maxlength="5000"><?= e($campos['mensaje']) ?></textarea>
                     <?php if (isset($errores['mensaje'])): ?><em><?= e($errores['mensaje']) ?></em><?php endif; ?>
                 </label>
 

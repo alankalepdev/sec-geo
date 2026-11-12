@@ -1,6 +1,7 @@
 <?php
 $pagina        = 'soluciones';
 $titulo_pagina = 'Soluciones';
+$h1            = 'Soluciones en geomecánica, geotecnia y geología minera';
 $subtitulo     = 'Servicios de especialidad y consultoría en geotecnia, geología, hidrología y geomecánica minera.';
 $subheader_img = $galeria_dir . 'proyecto-16.jpg';
 require __DIR__ . '/../includes/header.php';

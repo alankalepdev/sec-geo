@@ -3,7 +3,8 @@
  * Encabezado común.
  * Variables esperadas antes del include:
  *   $pagina          clave del menú activo (inicio, soluciones, casos, nosotros, contacto)
- *   $titulo_pagina   título para <title> y el subheader (opcional en inicio)
+ *   $titulo_pagina   nombre corto de la página (migas de pan; opcional en inicio)
+ *   $h1              encabezado principal con palabras clave (opcional; por defecto $titulo_pagina)
  *   $subtitulo       texto bajo el título del subheader (opcional)
  *   $subheader_img   imagen de fondo del subheader (opcional)
  */
@@ -12,6 +13,7 @@ require_once __DIR__ . '/config.php';
 $pagina        = $pagina ?? 'inicio';
 $es_inicio     = $pagina === 'inicio';
 $titulo_pagina = $titulo_pagina ?? '';
+$h1            = $h1 ?? $titulo_pagina;
 $subtitulo     = $subtitulo ?? '';
 $subheader_img = $subheader_img ?? $galeria_dir . 'proyecto-15.jpg';
 $titulo_head   = $seo[$pagina]['titulo'] ?? ($titulo_pagina ?: $site['nombre_largo']);
@@ -21,7 +23,8 @@ if ($pagina !== 'inicio') {
 $meta_desc     = $seo[$pagina]['descripcion'] ?? $site['descripcion'];
 $indexable     = isset($menu[$pagina]);
 $canonical     = $indexable ? abs_url($menu[$pagina]['url']) : '';
-$og_imagen     = abs_url($es_inicio ? $galeria_dir . 'proyecto-15.jpg' : $subheader_img);
+$og_ruta       = $es_inicio ? $galeria_dir . 'proyecto-15.jpg' : $subheader_img;
+$og_imagen     = abs_url($og_ruta);
 
 // Datos estructurados (schema.org) del negocio
 $schema = [
@@ -31,7 +34,7 @@ $schema = [
     'alternateName' => $site['nombre'],
     'description' => $site['descripcion'],
     'url'         => abs_url(url()),
-    'logo'        => abs_url(asset('assets/images/sec/logo-sec-completo.png')),
+    'logo'        => abs_url(asset('assets/images/sec/logo-sec-600.jpg')),
     'image'       => abs_url($galeria_dir . 'proyecto-15.jpg'),
     'email'       => $site['email'],
     'telephone'   => '+52' . preg_replace('/\D/', '', $site['whatsapp']),
@@ -43,7 +46,31 @@ $schema = [
         'opens'     => '00:00',
         'closes'    => '23:59',
     ],
+    'hasOfferCatalog' => [
+        '@type' => 'OfferCatalog',
+        'name'  => 'Soluciones',
+        'itemListElement' => array_map(fn($s) => [
+            '@type'       => 'Offer',
+            'itemOffered' => ['@type' => 'Service', 'name' => $s['titulo'], 'description' => $s['texto']],
+        ], $servicios),
+    ],
 ];
+
+// Migas de pan (schema.org) en páginas internas
+$schema_migas = null;
+if ($indexable && !$es_inicio) {
+    $schema_migas = [
+        '@context' => 'https://schema.org',
+        '@type'    => 'BreadcrumbList',
+        'itemListElement' => [
+            ['@type' => 'ListItem', 'position' => 1, 'name' => $menu['inicio']['titulo'], 'item' => abs_url(url())],
+            ['@type' => 'ListItem', 'position' => 2, 'name' => $menu[$pagina]['titulo'], 'item' => $canonical],
+        ],
+    ];
+}
+
+// Dimensiones de la imagen Open Graph (ayuda a que las redes la muestren desde el primer compartido)
+$og_tam = @getimagesize(__DIR__ . '/../' . substr($og_ruta, strlen(BASE_URL)));
 
 $body_class = $es_inicio
     ? 'home page template-slider'
@@ -71,6 +98,11 @@ $body_class = $es_inicio
     <meta property="og:title" content="<?= e($titulo_head) ?>">
     <meta property="og:description" content="<?= e($meta_desc) ?>">
     <meta property="og:image" content="<?= e($og_imagen) ?>">
+    <?php if ($og_tam): ?>
+        <meta property="og:image:width" content="<?= $og_tam[0] ?>">
+        <meta property="og:image:height" content="<?= $og_tam[1] ?>">
+    <?php endif; ?>
+    <meta property="og:image:alt" content="<?= e($site['nombre_largo']) ?>">
     <?php if ($indexable): ?>
         <meta property="og:url" content="<?= e($canonical) ?>">
     <?php endif; ?>
@@ -80,8 +112,12 @@ $body_class = $es_inicio
     <meta name="twitter:image" content="<?= e($og_imagen) ?>">
 
     <script type="application/ld+json"><?= json_encode($schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
+    <?php if ($schema_migas): ?>
+        <script type="application/ld+json"><?= json_encode($schema_migas, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) ?></script>
+    <?php endif; ?>
 
-    <link rel="icon" type="image/png" href="<?= asset('assets/images/sec/logo-sec-circulo.png') ?>">
+    <link rel="icon" type="image/png" href="<?= asset('assets/images/sec/favicon-64.png') ?>">
+    <link rel="apple-touch-icon" href="<?= asset('assets/images/sec/logo-sec-icon-180.png') ?>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,7 +139,7 @@ $body_class = $es_inicio
                             <div class="top_bar_left clearfix">
                                 <div class="logo">
                                     <a id="logo" class="sec-logo" href="<?= url() ?>" data-padding="20" aria-label="<?= e($site['nombre_largo']) ?>">
-                                        <img src="<?= asset('assets/images/sec/logo-sec-circulo.png') ?>" alt="Logo SEC">
+                                        <img src="<?= asset('assets/images/sec/logo-sec-header.png') ?>" alt="Logo SEC">
                                         <span class="sec-logo-text">
                                             <strong>Servicios de Especialidad</strong>
                                             <small>y Consultorías</small>
@@ -140,7 +176,7 @@ $body_class = $es_inicio
                 <div id="Subheader">
                     <div class="container">
                         <div class="column one">
-                            <h1 class="title"><?= e($titulo_pagina) ?></h1>
+                            <h1 class="title"><?= e($h1) ?></h1>
                             <?php if ($subtitulo): ?>
                                 <p class="sec-subheader-text"><?= e($subtitulo) ?></p>
                             <?php endif; ?>

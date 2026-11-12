@@ -1,6 +1,7 @@
 <?php
 $pagina        = 'nosotros';
 $titulo_pagina = 'Nosotros';
+$h1            = 'Consultoría en geociencias e ingeniería minera';
 $subtitulo     = 'Ingeniería geotécnica con tecnología de punta y talento humano calificado.';
 $subheader_img = $galeria_dir . 'proyecto-10.jpg';
 require __DIR__ . '/../includes/header.php';

@@ -66,13 +66,13 @@ a:hover {
 	gap: 12px;
 	height: auto !important;
 	line-height: 1.15 !important;
-	padding: 25px 0 !important;
+	padding: 17px 0 !important;
 	text-decoration: none;
 }
 
 #Top_bar .sec-logo img {
-	width: 70px;
-	height: 70px !important;
+	width: auto;
+	height: 86px !important;
 	max-height: none;
 	display: block !important;
 	filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .25));
@@ -165,8 +165,8 @@ a:hover {
 }
 
 #Top_bar.is-sticky .sec-logo img {
-	width: 48px;
-	height: 48px !important;
+	width: auto;
+	height: 54px !important;
 	max-height: none !important;
 }
 
@@ -223,8 +223,9 @@ body:not(.template-slider) #Header_wrapper > #Header {
 }
 
 #Subheader .title {
+	max-width: 900px;
 	color: #fff !important;
-	font-size: 54px !important;
+	font-size: 44px !important;
 	line-height: 1.1 !important;
 	font-weight: 800 !important;
 	margin-bottom: 12px;
@@ -1306,8 +1307,8 @@ body:not(.template-slider) #Header_wrapper > #Header {
 }
 
 .sec-footer-logo img {
-	width: 64px;
-	height: 64px;
+	width: auto;
+	height: 80px;
 }
 
 .sec-footer-logo strong {
@@ -1449,14 +1450,14 @@ body:not(.template-slider) #Header_wrapper > #Header {
 		padding: 150px 0 60px !important;
 	}
 	#Subheader .title {
-		font-size: 36px !important;
+		font-size: 30px !important;
 	}
 	#Top_bar .sec-logo {
 		padding: 6px 0 !important;
 	}
 	#Top_bar .sec-logo img {
-		width: 50px;
-		height: 50px !important;
+		width: auto;
+		height: 54px !important;
 	}
 	.sec-form-wrap {
 		padding: 30px 22px;
