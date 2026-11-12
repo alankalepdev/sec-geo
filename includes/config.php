@@ -159,11 +159,10 @@ $clientes_dir = asset('assets/images/sec/clientes/');
 $clientes = [
     ['nombre' => 'Grupo Calidra',                'logo' => 'calidra.png'],
     ['nombre' => 'Peñoles',                      'logo' => 'penoles.png'],
-    ['nombre' => 'FMSC',                         'logo' => ''],
+    ['nombre' => 'First Majestic Silver Corp',   'logo' => 'fmsc.png'],
     ['nombre' => 'Cemex',                        'logo' => 'cemex.png'],
     ['nombre' => 'Sierra Madre Gold and Silver', 'logo' => 'sierramadre.png'],
     ['nombre' => 'Silver Storm Mining',          'logo' => 'silverstorm.png'],
-    ['nombre' => 'First Majestic Silver Corp',   'logo' => 'firstmajestic.png'],
     ['nombre' => 'GoldGroup Mining Inc.',        'logo' => 'goldgroup.png'],
     ['nombre' => 'Oroco Resources SA de CV',     'logo' => 'oroco.png'],
     ['nombre' => 'Luca Mining',                  'logo' => 'luca.png'],
