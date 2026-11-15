@@ -75,8 +75,12 @@ a:hover {
 	height: 86px !important;
 	max-height: none;
 	display: block !important;
-	filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .25));
-	transition: width .25s, height .25s;
+	box-sizing: border-box;
+	background: #fff;
+	padding: 6px;
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+	transition: width .25s, height .25s, padding .25s;
 }
 
 .sec-logo-text {
@@ -168,6 +172,8 @@ a:hover {
 	width: auto;
 	height: 54px !important;
 	max-height: none !important;
+	padding: 4px;
+	border-radius: 6px;
 }
 
 #Top_bar.is-sticky .menu > li > a {
@@ -1458,6 +1464,8 @@ body:not(.template-slider) #Header_wrapper > #Header {
 	#Top_bar .sec-logo img {
 		width: auto;
 		height: 54px !important;
+		padding: 4px;
+		border-radius: 6px;
 	}
 	.sec-form-wrap {
 		padding: 30px 22px;
