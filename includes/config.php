@@ -49,7 +49,7 @@ $site = [
     'lema'         => 'Ingeniería especializada. Soluciones estratégicas. Confianza técnica.',
     'descripcion'  => 'Consultoría integral en geomecánica, geotecnia, geología y geohidrología para minería subterránea y a cielo abierto.',
     // WhatsApp de atención. TODO: número por confirmar (el cliente contratará una línea de trabajo)
-    'whatsapp'     => '(331) 468-5868',
+    'whatsapp'     => '(444) 292-3750',
     'email'        => 'contacto@secgeoconsult.com',
     // Correo que recibe los mensajes del formulario de contacto
     'email_contacto' => 'contacto@secgeoconsult.com',

@@ -1315,6 +1315,10 @@ body:not(.template-slider) #Header_wrapper > #Header {
 .sec-footer-logo img {
 	width: auto;
 	height: 80px;
+	box-sizing: border-box;
+	background: #fff;
+	padding: 6px;
+	border-radius: 8px;
 }
 
 .sec-footer-logo strong {
